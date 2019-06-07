@@ -1,0 +1,20 @@
+module.exports = {
+    getAllProducts: (req, res) => {
+        const db = req.app.get('db')
+
+        db.get_inventory().then(product => {
+            res.status(200).send(product)
+        })
+    },
+
+    createProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {product} = req.body
+
+        db.create_product([product]).then(product => {
+            res.status(200).send(product)
+        }).catch(err => console.log(err))
+    }, 
+
+
+}
