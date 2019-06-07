@@ -1,13 +1,16 @@
 import React, { Component } from 'react'
 import axios from 'axios'
 import Product from '../Product/Product'
+import Form from '../Form/Form'
+
 
 export default class Dashboard extends Component {
     constructor(props) {
         super(props) 
         
         this.state = {
-            products: []
+            products: [],
+            editing: true
         }
     }
 
@@ -15,7 +18,7 @@ export default class Dashboard extends Component {
         axios.get('/api/inventory').then(res => {
             console.log(651651351681815, res.data)
             this.setState({
-                inventory: res.data
+                products: res.data
             })
         }).catch(err => console.log("why is this happening?", err))
     }
@@ -24,10 +27,21 @@ export default class Dashboard extends Component {
         axios.post('/api/inventory', product).then(res => {
             console.log(561896168165498, res.data)
             this.setState({
-                inventory: res.data
+                products: res.data,
+                editing: false
             })
         })
     }
+
+    deleteProduct = (id) => {
+        axios.delete(`/api/inventory/${id}`).then(res => {
+            console.log(6516518665165, res.data)
+            this.setState({
+                products: res.data
+            })
+        })
+    }
+
 
 
 
@@ -37,14 +51,17 @@ export default class Dashboard extends Component {
             return(
                 <Product
                 key={product.product_id}
-                
+                products={this.deleteProduct}
                 /> 
             )
         })
         return (
             <div>
                 <h1>Dashboard</h1>
-                <Product  />
+                <Product/>
+                <Form 
+                create={this.createProduct}
+                editing={this.state.editing} />
                 {mappedInventory}
             </div>
         )

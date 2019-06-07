@@ -16,5 +16,14 @@ module.exports = {
         }).catch(err => console.log(err))
     }, 
 
+    deleteProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.body
+        
+        db.delete_product([id]).then(product => {
+            res.status(200).send(product)
+        }).catch(err => console.log(err))
+    },
 
+    
 }
