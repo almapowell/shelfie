@@ -28,7 +28,6 @@ export default class Dashboard extends Component {
             console.log(561896168165498, res.data)
             this.setState({
                 products: res.data,
-                editing: false
             })
         })
     }
@@ -42,7 +41,14 @@ export default class Dashboard extends Component {
         })
     }
 
+    setEditing = (id) => {
+        let product = this.state.products.find(product => product.id == product)
 
+        this.setState({
+            editing: true,
+            currentProduct: product
+        })
+    }
 
 
 
@@ -51,7 +57,8 @@ export default class Dashboard extends Component {
             return(
                 <Product
                 key={product.product_id}
-                products={this.deleteProduct}
+                product={product}
+                deleteProduct={this.deleteProduct}
                 /> 
             )
         })

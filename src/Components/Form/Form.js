@@ -12,6 +12,17 @@ export default class Form extends Component {
         }
     }
 
+    componentDidUpdate() {
+        let {product} = this.props.product
+        if(product.name !== product.name){
+            this.setState({
+                imageUrl: product.imageUrl,
+                name: product.name,
+                price: product.price
+            })
+        }
+    }
+
     handleChange = (e) => {
         let { name, value } = e.target
         this.setState({
@@ -44,14 +55,32 @@ export default class Form extends Component {
         })
     }
 
+    editProduct = (e) => {
+        const {id} = this.props.product
+        const { imageUrl, name, price } = this.state
+        let edited = (
+            imageUrl,
+            name,
+            price
+        )
+        
+        this.props.editProduct(id, edited)
+
+        this.setState({
+            imageUrl: '',
+            name: '',
+            price: 0
+        })
+    }
+
     render() {
+        const { imageUrl, name, price } = this.state
         const { editing } = this.props
         return (
             <div>
                 <h1>Form</h1>
                 <form
                     className="form"
-                    onSubmit={editing ? this.updateProduct : this.createProduct}
                 >
                     <input type="text"
                         placeholder="Image"
@@ -74,7 +103,7 @@ export default class Form extends Component {
                         value={this.state.price}
                     />
 
-                    {editing ? (
+                    {this.editProduct ? (
                         <button onClick={() => this.createProduct}>Add to Inventory</button>
                     ) : (
                             <button>Save Changes</button>
