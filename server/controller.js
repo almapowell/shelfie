@@ -25,5 +25,13 @@ module.exports = {
         }).catch(err => console.log(err))
     },
 
-    
+    updateProduct: (req, res) => {
+        const db = req.app.get('db')
+        const {id} = req.params
+        const {product} = req.body
+
+        db.update_product([id, product]).then(product => {
+            res.status(200).send(product)
+        })
+    }
 }

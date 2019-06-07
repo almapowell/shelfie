@@ -18,8 +18,7 @@ app.post('/api/inventory', ctrl.createProduct)
 
 app.delete('/api/inventory/:id', ctrl.deleteProduct) 
 
-
-
+app.put('api/inventory/:id', ctrl.updateProduct)
 
 
 app.listen(SERVER_PORT, () => console.log('Listening on port', SERVER_PORT))

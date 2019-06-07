@@ -57,9 +57,9 @@ export default class Dashboard extends Component {
             return(
                 <Product
                 key={product.product_id}
-                product={product}
                 deleteProduct={this.deleteProduct}
                 /> 
+                // <Form product={product}/>
             )
         })
         return (
@@ -67,6 +67,7 @@ export default class Dashboard extends Component {
                 <h1>Dashboard</h1>
                 <Product/>
                 <Form 
+                products={this.state.products}
                 create={this.createProduct}
                 editing={this.state.editing} />
                 {mappedInventory}
